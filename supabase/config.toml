@@ -1,0 +1,103 @@
+# Supabase CLI configuration for local development (`supabase start`).
+# Hosted projects are configured in the dashboard — see DEPLOYMENT.md.
+project_id = "showcase"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[studio]
+enabled = true
+port = 54323
+
+# Local email testing UI (all auth emails are captured here, nothing is sent).
+[local_smtp]
+enabled = true
+port = 54324
+
+[storage]
+enabled = true
+file_size_limit = "2MiB"
+
+[auth]
+enabled = true
+site_url = "http://localhost:5173"
+additional_redirect_urls = [
+  "http://localhost:5173/auth/callback",
+  "http://localhost:5173/auth/confirm",
+  "http://127.0.0.1:5173/auth/callback",
+  "http://127.0.0.1:5173/auth/confirm",
+]
+jwt_expiry = 3600
+enable_refresh_token_rotation = true
+refresh_token_reuse_interval = 10
+enable_signup = true
+minimum_password_length = 8
+password_requirements = "letters_digits"
+
+[auth.rate_limit]
+email_sent = 10
+sign_in_sign_ups = 30
+token_verifications = 30
+
+[auth.email]
+enabled = true
+double_confirm_changes = true
+enable_confirmations = true
+secure_password_change = false
+max_frequency = "1m0s"
+
+[auth.email.template.confirmation]
+subject = "Confirm your Showcase account"
+content_path = "./supabase/templates/confirmation.html"
+
+[auth.email.template.recovery]
+subject = "Reset your Showcase password"
+content_path = "./supabase/templates/recovery.html"
+
+# ─── Hosted production project ────────────────────────────────────────────────
+# Overrides applied by `supabase config push` to the linked project only.
+# Local development keeps the localhost values above.
+[remotes.production]
+project_id = "bhlijnewloakxbjxyfxp"
+
+[remotes.production.auth]
+site_url = "https://myshowcase.co.ke"
+additional_redirect_urls = [
+  "https://myshowcase.co.ke/auth/confirm",
+  "https://myshowcase.co.ke/auth/callback",
+  "https://www.myshowcase.co.ke/auth/confirm",
+  "https://www.myshowcase.co.ke/auth/callback",
+  # Vercel deployment URL (until/alongside the custom domain).
+  "https://showcasev1.vercel.app/auth/confirm",
+  "https://showcasev1.vercel.app/auth/callback",
+  # Local development against this project (remove at public launch if unused).
+  "http://localhost:5173/auth/confirm",
+  "http://localhost:5173/auth/callback",
+]
+
+# Owner's decision: no email confirmation in production. Pinned here so a
+# `config push` never silently re-enables it. Google sign-ins are protected by
+# public.secure_linked_sign_in() (see migration 20261112100000).
+[remotes.production.auth.email]
+enable_confirmations = false
+
+# Google (auth.external.google) and the OAuth 2.1 server (auth.oauth_server,
+# consent page at /oauth/consent) are managed in the Supabase dashboard so the
+# Google client secret never passes through this repository.
+
+# Reject unencrypted direct database connections (the app itself only uses HTTPS).
+[remotes.production.db.ssl_enforcement]
+enabled = true

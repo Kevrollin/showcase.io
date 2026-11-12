@@ -1,0 +1,14 @@
+{
+  "name": "Showcase",
+  "short_name": "Showcase",
+  "description": "Everything you sell or do, in one simple link.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#FAF8F4",
+  "theme_color": "#FAF8F4",
+  "icons": [
+    { "src": "/favicon/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

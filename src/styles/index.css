@@ -1,0 +1,273 @@
+@import 'tailwindcss';
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Showcase design tokens
+   Warm off-white surfaces, deep navy ink, restrained muted gold, sage accent.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --background: #faf8f4;
+  --foreground: #172033;
+  --surface: #ffffff;
+  --surface-muted: #f4f1ea;
+  --surface-sunken: #efebe3;
+  --muted-foreground: #5b6375;
+  --subtle-foreground: #868c99;
+  --border: #e6e1d7;
+  --border-strong: #d4cdbf;
+
+  --primary: #1b2741;
+  --primary-hover: #273658;
+  --primary-foreground: #ffffff;
+
+  --gold: #b8924a;
+  --gold-strong: #8a6a1f;
+  --gold-soft: #f5eddd;
+
+  --sage: #2f6b5e;
+  --sage-soft: #e5efeb;
+
+  --danger: #b13f2d;
+  --danger-soft: #fbece8;
+  --success: #2a7449;
+  --success-soft: #e6f2ea;
+  --warning: #93650f;
+  --warning-soft: #fbf2df;
+
+  --whatsapp: #157a44;
+  --whatsapp-hover: #106537;
+
+  --ring: #8a6a1f;
+
+  /* Space reserved at the bottom of the viewport by fixed UI (dashboard nav). */
+  --sticky-bottom: 0px;
+
+  /* Storefront accent (overridden per storefront). */
+  --sf-accent: #1f2a44;
+  --sf-accent-tint: #eef0f5;
+}
+
+@theme inline {
+  --font-sans: 'DM Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Manrope Variable', 'DM Sans Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-gold: var(--gold);
+  --color-gold-strong: var(--gold-strong);
+  --color-gold-soft: var(--gold-soft);
+  --color-sage: var(--sage);
+  --color-sage-soft: var(--sage-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-hover: var(--whatsapp-hover);
+  --color-ring: var(--ring);
+  --color-sf-accent: var(--sf-accent);
+  --color-sf-accent-tint: var(--sf-accent-tint);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.125rem;
+
+  --shadow-xs: 0 1px 2px rgb(23 32 51 / 0.05);
+  --shadow-sm: 0 1px 2px rgb(23 32 51 / 0.06), 0 1px 3px rgb(23 32 51 / 0.04);
+  --shadow-md: 0 6px 20px -6px rgb(23 32 51 / 0.12), 0 2px 6px -2px rgb(23 32 51 / 0.06);
+  --shadow-lg: 0 24px 48px -16px rgb(23 32 51 / 0.18), 0 8px 16px -8px rgb(23 32 51 / 0.08);
+
+  --animate-fade-in: fade-in 180ms ease-out;
+  --animate-slide-up: slide-up 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--gold-soft);
+    color: var(--foreground);
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-page { padding-inline: 1.5rem; }
+  }
+
+  /* Storefront content width. Uses container queries so the same component
+     renders correctly full-screen and inside the dashboard's phone preview. */
+  .sf-container {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @container (min-width: 42rem) {
+    .sf-container { padding-inline: 1.5rem; }
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--surface-sunken) 25%, var(--surface-muted) 37%, var(--surface-sunken) 63%);
+    background-size: 400% 100%;
+    animation: var(--animate-shimmer);
+  }
+
+  /* Placeholder behind images while they load — avoids layout shift. */
+  .img-frame {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--surface-sunken);
+  }
+  .img-frame > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Printing the QR card from /dashboard/share prints only the card. */
+@media print {
+  @page { margin: 12mm; }
+  body * { visibility: hidden !important; }
+  #print-area, #print-area * { visibility: visible !important; }
+  #print-area {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 90mm;
+    transform: translateX(-50%);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* Horizontal scrollers on phones: fade the edges so it's clear there's more. */
+@layer components {
+  .scroll-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 1rem, #000 calc(100% - 1.75rem), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 1rem, #000 calc(100% - 1.75rem), transparent 100%);
+  }
+  @container (min-width: 42rem) {
+    .scroll-fade-x {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+  }
+}
+
+/* One-line text that glides to reveal overflow (OverflowLine). */
+@keyframes marquee-reveal {
+  0%, 15% { transform: translateX(0); }
+  50%, 65% { transform: translateX(var(--marquee-shift, 0)); }
+  100% { transform: translateX(0); }
+}
+@layer components {
+  .animate-marquee {
+    animation: marquee-reveal var(--marquee-duration, 8s) ease-in-out infinite;
+    will-change: transform;
+  }
+  /* Soft fade on the right edge only, so the first letters are always crisp. */
+  .marquee-fade {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 1.25rem), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 1.25rem), transparent);
+  }
+}
